@@ -284,31 +284,61 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildTree(parentId = null) {
     return tasks
       .filter(t => t.parentId === parentId)
-      .map(t => ({ ...t, children: buildTree(t.id) }));
+      .map(t => ({ 
+        ...t, // Preserve all original task properties
+        children: buildTree(t.id) 
+      }));
   }
 
   function flattenTree(tree) {
     let flat = [];
     tree.forEach(node => {
-      flat.push(node);
-      flat = flat.concat(flattenTree(node.children));
+      // Create a clean task object without the children property
+      const { children, ...task } = node;
+      flat.push(task);
+      if (children && children.length > 0) {
+        flat = flat.concat(flattenTree(children));
+      }
     });
     return flat;
   }
 
   function sortTree(tree, key, isNumeric = false) {
+    // Sort the current level
     tree.sort((a, b) => {
-      if (isNumeric) return b[key] - a[key]; // Desc for priority
-      return String(a[key]).localeCompare(String(b[key]));
+      if (isNumeric) {
+        return b[key] - a[key]; // Descending for priority (higher priority first)
+      } else {
+        // Handle both string and non-string values
+        const aVal = String(a[key] || '').toLowerCase();
+        const bVal = String(b[key] || '').toLowerCase();
+        return aVal.localeCompare(bVal);
+      }
     });
-    tree.forEach(node => sortTree(node.children, key, isNumeric));
+    
+    // Recursively sort children
+    tree.forEach(node => {
+      if (node.children && node.children.length > 0) {
+        sortTree(node.children, key, isNumeric);
+      }
+    });
   }
 
   function sortBy(key) {
+    // Build tree structure maintaining hierarchy
     let tree = buildTree();
+    
+    // Sort each level of the tree
     const isNumeric = key === "priority";
     sortTree(tree, key, isNumeric);
-    tasks = flattenTree(tree);
+    
+    // Flatten back to array while preserving the sorted hierarchy
+    const sortedTasks = flattenTree(tree);
+    
+    // Update the tasks array
+    tasks = sortedTasks;
+    
+    // Re-render the table
     renderTasks();
   }
 
@@ -322,7 +352,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("toggleDateTime").addEventListener("click", () => {
     showDateTime = !showDateTime;
-    document.querySelector(".date-time-header").style.display = showDateTime ? "" : "none";
+    const dateHeader = document.querySelector(".date-time-header");
+    const dateCells = document.querySelectorAll(".modern-table td:nth-child(6)");
+    
+    if (showDateTime) {
+      dateHeader.style.display = "";
+      dateCells.forEach(cell => cell.style.display = "");
+    } else {
+      dateHeader.style.display = "none";
+      dateCells.forEach(cell => cell.style.display = "none");
+    }
     renderTasks();
   });
 
