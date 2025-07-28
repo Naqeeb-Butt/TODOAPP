@@ -14,6 +14,7 @@ body {
   line-height: 1.5;
   padding: 20px;
   transition: all 0.3s ease-in-out;
+  min-height: 100vh;
 }
 
 /* Header */
@@ -29,25 +30,31 @@ body {
 .app-header h1 {
   font-size: 28px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* Buttons */
+/* Enhanced Buttons with better touch targets */
 button,
 .btn-primary,
 .btn-secondary {
-  padding: 10px 16px;
+  padding: 12px 18px;
   font-size: 15px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 44px; /* Minimum touch target size */
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
 }
 
 .btn-primary {
@@ -56,6 +63,7 @@ button,
 }
 .btn-primary:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
 .btn-secondary {
   background-color: #f2f2f2;
@@ -63,17 +71,18 @@ button,
 }
 .btn-secondary:hover {
   background-color: #ddd;
+  transform: translateY(-1px);
 }
 
-/* Dropdowns */
+/* Enhanced Controls Section */
 .controls {
   margin: 30px 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  align-items: flex-end;
+  align-items: end;
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
@@ -83,18 +92,18 @@ button,
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  min-width: 120px;
+  gap: 8px;
 }
 
 .controls select {
-  padding: 10px;
+  padding: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background-color: #fff;
   font-size: 14px;
   cursor: pointer;
   transition: 0.3s;
-  margin-top: 5px;
+  min-height: 44px; /* Touch-friendly height */
 }
 
 .controls select:hover {
@@ -108,140 +117,171 @@ button,
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
+/* Enhanced Sort Buttons */
 .sort-buttons {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
+  grid-column: 1 / -1; /* Span full width */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .sort-buttons button {
-  padding: 10px 16px;
+  padding: 12px 16px;
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.3s ease;
+  min-height: 44px;
+  font-weight: 500;
 }
 
 .sort-buttons button:hover {
   background-color: #e9ecef;
   border-color: #adb5bd;
+  transform: translateY(-1px);
 }
 
-/* Table */
+.sort-buttons button:active {
+  background-color: #007bff;
+  color: white;
+  transform: translateY(0);
+}
+
+/* Enhanced Table Container */
 .table-wrapper {
   overflow-x: auto;
   margin: 20px 0;
-  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
   width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  background: white;
 }
 
+/* Responsive Table */
 .modern-table {
   width: 100%;
-  min-width: 900px; /* Ensure minimum width for proper layout */
+  min-width: 800px; /* Reduced from 900px for better mobile experience */
   table-layout: fixed;
   border-collapse: collapse;
+  background: white;
 }
 
-/* Responsive column widths */
+/* Optimized column widths */
 .modern-table th:nth-child(1),
 .modern-table td:nth-child(1) {
-  width: 8%; /* ID column */
+  width: 60px; /* Fixed width for ID */
 }
 
 .modern-table th:nth-child(2),
 .modern-table td:nth-child(2) {
-  width: 35%; /* Task column - more space */
+  width: 35%; /* Task column */
 }
 
 .modern-table th:nth-child(3),
 .modern-table td:nth-child(3) {
-  width: 12%; /* Name column */
+  width: 15%; /* Name column */
 }
 
 .modern-table th:nth-child(4),
 .modern-table td:nth-child(4) {
-  width: 8%; /* Priority column */
+  width: 80px; /* Fixed width for Priority */
 }
 
 .modern-table th:nth-child(5),
 .modern-table td:nth-child(5) {
-  width: 12%; /* Schedule column */
+  width: 15%; /* Schedule column */
 }
 
 .modern-table th:nth-child(6),
 .modern-table td:nth-child(6) {
-  width: 15%; /* Date/Time column */
+  width: 20%; /* Date/Time column */
 }
 
 .modern-table th:nth-child(7),
 .modern-table td:nth-child(7) {
-  width: 140px; /* Fixed width for Actions column */
-  text-align: center;
-  min-width: 140px;
+  width: 160px; /* Fixed width for Actions */
+  min-width: 160px;
 }
 
-/* Task cell styling with proper icon spacing */
+/* Enhanced Task Cell */
 .task-cell {
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .task-cell .toggle-icon {
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 8px;
   cursor: pointer;
   user-select: none;
   display: inline-block;
   width: 16px;
   text-align: center;
+  font-size: 14px;
+  color: #007bff;
+  transition: color 0.2s ease;
 }
 
-/* Actions cell improvements */
+.task-cell .toggle-icon:hover {
+  color: #0056b3;
+}
+
+/* Enhanced Actions Cell */
 .actions-cell {
   display: flex;
-  gap: 12px; /* Significant gap between Edit and Delete buttons */
+  gap: 8px;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap; /* Keep buttons side by side */
+  flex-wrap: nowrap;
+  padding: 8px !important;
 }
-.todo-table {
 
+.todo-table {
   border-collapse: collapse;
   background: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .todo-table th,
 .todo-table td {
-  padding: 15px 20px;
+  padding: 16px 12px;
   border-bottom: 1px solid #eee;
   text-align: left;
+  vertical-align: middle;
 }
 
 .todo-table th {
   background-color: #f9fafc;
   font-weight: 600;
+  color: #495057;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .todo-table tbody tr:hover {
   background-color: #f5faff;
 }
 
-/* Action Buttons */
+/* Enhanced Action Buttons */
 .edit-btn, .delete-btn {
-  padding: 8px 16px;
+  padding: 8px 14px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 13px;
-  transition: 0.2s ease;
-  min-width: 65px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  min-width: 60px;
+  min-height: 36px; /* Touch-friendly size */
   white-space: nowrap;
-  flex-shrink: 0; /* Prevent buttons from shrinking */
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit-btn {
@@ -264,7 +304,7 @@ button,
   transform: translateY(-1px);
 }
 
-/* Modal */
+/* Enhanced Modal */
 .modal {
   position: fixed;
   top: 0; left: 0;
@@ -274,6 +314,7 @@ button,
   align-items: center;
   justify-content: center;
   z-index: 100;
+  padding: 20px;
 }
 .modal.hidden {
   display: none;
@@ -282,27 +323,46 @@ button,
   background: white;
   padding: 30px;
   border-radius: 12px;
-  width: 90%;
+  width: 100%;
   max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 .modal-card h2 {
   margin-bottom: 20px;
   font-size: 22px;
+  color: #333;
+}
+.modal-card label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #555;
 }
 .modal-card input,
 .modal-card select {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   margin-top: 6px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 14px;
+  min-height: 44px; /* Touch-friendly */
+  transition: border-color 0.3s ease;
+}
+.modal-card input:focus,
+.modal-card select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
+  margin-top: 25px;
+  flex-wrap: wrap;
 }
 
 /* Footer */
@@ -311,149 +371,297 @@ button,
   text-align: center;
   color: #777;
   font-size: 14px;
+  padding: 20px;
 }
 
-/* Enhanced Responsive Design */
+/* =====================
+   RESPONSIVE BREAKPOINTS
+===================== */
+
+/* Large Tablets and Small Desktops */
 @media (max-width: 1024px) {
   .modern-table {
-    min-width: 700px;
+    min-width: 750px;
   }
-
-  .modern-table th:nth-child(2),
-  .modern-table td:nth-child(2) {
-    width: 30%; /* Reduce task column width on tablets */
-  }
-
-  .modern-table th:nth-child(6),
-  .modern-table td:nth-child(6) {
-    width: 18%; /* Increase date column slightly */
+  
+  .controls {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
   }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
   body {
-    padding: 10px;
+    padding: 15px;
+    font-size: 15px;
   }
 
   .app-header {
-    padding: 15px 20px;
+    padding: 20px;
   }
 
   .app-header h1 {
     font-size: 24px;
+    margin-bottom: 15px;
   }
 
   .toolbar {
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .sort-buttons {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .modern-table {
+    min-width: 650px;
+  }
+
+  .modern-table th,
+  .modern-table td {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  .actions-cell {
+    gap: 6px;
+  }
+
+  .edit-btn, .delete-btn {
+    font-size: 11px;
+    padding: 6px 10px;
+    min-width: 50px;
+    min-height: 32px;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .app-header {
+    padding: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 
   .toolbar button {
     width: 100%;
-    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
   }
 
   .controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 15px;
-  }
-
-  .controls label {
-    width: 100%;
-  }
-
-  .controls select {
-    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 15px;
   }
 
   .sort-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 8px;
-    width: 100%;
   }
 
   .sort-buttons button {
     width: 100%;
-    font-size: 12px;
-    padding: 8px 4px;
-  }
-
-  .modern-table {
-    min-width: 700px;
-  }
-
-  .modern-table th,
-  .modern-table td {
-    padding: 10px 8px;
+    padding: 12px;
     font-size: 14px;
   }
 
-  .actions-cell {
-    flex-direction: row;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .edit-btn, .delete-btn {
-    font-size: 12px;
-    padding: 6px 10px;
-    min-width: 50px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-header h1 {
-    font-size: 20px;
-  }
-
   .modern-table {
-    min-width: 500px;
+    min-width: 600px; /* Increased from 500px to prevent collapsing */
   }
 
   .modern-table th:nth-child(1),
   .modern-table td:nth-child(1) {
-    width: 10%; /* Slightly larger ID column on small screens */
+    width: 50px;
+    min-width: 50px;
   }
 
   .modern-table th:nth-child(2),
   .modern-table td:nth-child(2) {
-    width: 40%; /* More space for task text */
+    width: 180px; /* Fixed width instead of percentage */
+    min-width: 180px;
   }
 
   .modern-table th:nth-child(3),
   .modern-table td:nth-child(3) {
-    width: 15%; /* Name column */
+    width: 80px; /* Fixed width instead of percentage */
+    min-width: 80px;
   }
 
   .modern-table th:nth-child(4),
   .modern-table td:nth-child(4) {
-    width: 8%; /* Priority */
+    width: 60px;
+    min-width: 60px;
   }
 
   .modern-table th:nth-child(5),
   .modern-table td:nth-child(5) {
-    width: 12%; /* Schedule */
+    width: 80px; /* Fixed width instead of percentage */
+    min-width: 80px;
   }
 
   .modern-table th:nth-child(6),
   .modern-table td:nth-child(6) {
-    display: none; /* Hide date/time on very small screens */
+    display: none; /* Hide date/time on small screens */
   }
 
   .modern-table th:nth-child(7),
   .modern-table td:nth-child(7) {
-    width: 15%; /* Actions */
+    width: 140px;
+    min-width: 140px;
+  }
+
+  .modern-table th,
+  .modern-table td {
+    padding: 12px 6px;
+    font-size: 13px;
+    white-space: nowrap; /* Prevent text wrapping within cells */
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  /* Allow task text to wrap but control it */
+  .modern-table th:nth-child(2),
+  .modern-table td:nth-child(2) {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px !important;
+  }
+
+  .edit-btn, .delete-btn {
+    width: 100%;
+    font-size: 11px;
+    padding: 8px 4px;
+    min-height: 32px;
   }
 
   .modal-card {
     width: 95%;
-    padding: 20px;
+    padding: 20px 15px;
+    margin: 10px;
   }
 
   .modal-card h2 {
     font-size: 18px;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .modal-actions button {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  .modern-table {
+    min-width: 550px; /* Increased to prevent collapsing */
+  }
+
+  .app-header h1 {
+    font-size: 18px;
+  }
+
+  .modern-table th:nth-child(2),
+  .modern-table td:nth-child(2) {
+    width: 160px; /* Slightly smaller for very small screens */
+    min-width: 160px;
+  }
+
+  .modern-table th:nth-child(3),
+  .modern-table td:nth-child(3) {
+    width: 70px;
+    min-width: 70px;
+  }
+
+  .modern-table th:nth-child(5),
+  .modern-table td:nth-child(5) {
+    width: 70px;
+    min-width: 70px;
+  }
+
+  .modern-table th:nth-child(7),
+  .modern-table td:nth-child(7) {
+    width: 130px;
+    min-width: 130px;
+  }
+
+  .modern-table th,
+  .modern-table td {
+    padding: 10px 4px;
+    font-size: 12px;
+  }
+
+  .edit-btn, .delete-btn {
+    font-size: 10px;
+    padding: 6px 2px;
+    min-height: 28px;
+  }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .toggle-icon {
+    font-size: 12px; /* Slightly smaller icons on high DPI */
+  }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .app-header {
+    padding: 10px 20px;
+  }
+  
+  .app-header h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .toolbar {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .controls {
+    grid-template-columns: repeat(4, 1fr);
+    padding: 15px;
+  }
+  
+  .sort-buttons {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
