@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Open+Sans&family=Poppins&family=Raleway&family=Montserrat&family=Lato&family=Oswald&family=Merriweather&family=Ubuntu&family=Nunito&family=Work+Sans&family=Quicksand&family=Fira+Sans&family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <h1>To-Do List</h1>
+    <div class="toolbar">
+      <button id="addTaskBtn" class="btn-primary">+ Add Task</button>
+      <button id="expandAll">Expand All</button>
+      <button id="collapseAll">Collapse All</button>
+      <button id="printBtn">Print</button>
+      <button id="toggleDateTime">Toggle Date/Time</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="controls">
+      <label>Font:
+        <select id="fontSelect">
+          <option value="Arial">Arial</option>
+          <option value="Verdana">Verdana</option>
+          <option value="Georgia">Georgia</option>
+          <option value="'Courier New'">Courier New</option>
+          <option value="'Trebuchet MS'">Trebuchet MS</option>
+          <option value="'Segoe UI'">Segoe UI</option>
+          <option value="'Lucida Console'">Lucida Console</option>
+          <option value="Tahoma">Tahoma</option>
+          <option value="'Times New Roman'">Times New Roman</option>
+          <option value="Impact">Impact</option>
+          <option value="Comic Sans MS">Comic Sans MS</option>
+          <option value="Garamond">Garamond</option>
+          <option value="'Palatino Linotype'">Palatino Linotype</option>
+          <option value="'Century Gothic'">Century Gothic</option>
+          <option value="'Franklin Gothic Medium'">Franklin Gothic Medium</option>
+          <option value="'Lucida Sans Unicode'">Lucida Sans Unicode</option>
+        </select>
+      </label>
+      <label>Size:
+        <select id="fontSizeSelect">
+          <option value="12px">12px</option>
+          <option value="14px">14px</option>
+          <option value="16px">16px</option>
+          <option value="18px">18px</option>
+          <option value="20px">20px</option>
+          <option value="24px">24px</option>
+        </select>
+      </label>
+      <label>Color:
+        <select id="colorSelect">
+          <option value="#000000">Black</option>
+          <option value="#FF0000">Red</option>
+          <option value="#008000">Green</option>
+          <option value="#0000FF">Blue</option>
+          <option value="#FFA500">Orange</option>
+          <option value="#800080">Purple</option>
+          <option value="#808080">Gray</option>
+          <option value="#00CED1">Dark Turquoise</option>
+          <option value="#FF69B4">Hot Pink</option>
+          <option value="#4B0082">Indigo</option>
+          <option value="#A52A2A">Brown</option>
+          <option value="#2E8B57">Sea Green</option>
+          <option value="#DAA520">Goldenrod</option>
+          <option value="#DC143C">Crimson</option>
+          <option value="#4682B4">Steel Blue</option>
+          <option value="#FF4500">Orange Red</option>
+        </select>
+      </label>
+      <div class="sort-buttons">
+        <button id="sortNameBtn">Sort by Name</button>
+        <button id="sortPriorityBtn">Sort by Priority</button>
+        <button id="sortScheduleBtn">Sort by Schedule</button>
+      </div>
+    </section>
+
+    <!-- Modern Styled Task Table -->
+    <section class="todo-table table-wrapper">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Name</th>
+            <th>Priority</th>
+            <th>Schedule</th>
+            <th class="date-time-header">Date & Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="taskTable">
+          <!-- Tasks will be dynamically inserted here -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal Popup for Add/Edit -->
+  <div id="taskModal" class="modal hidden">
+    <div class="modal-card">
+      <h2 id="modalTitle">Add Task</h2>
+      <form id="taskForm">
+        <label>Task Description
+          <input type="text" id="taskText" placeholder="e.g., Prepare witness list" required />
+        </label>
+        <label>Name
+          <input type="text" id="taskName" placeholder="Assign person" required />
+        </label>
+        <label>Priority (1-10)
+          <input type="number" id="taskPriority" min="1" max="10" required />
+        </label>
+        <label>Schedule
+          <input type="text" id="taskSchedule" placeholder="e.g., Today / Week 3" />
+        </label>
+        <label>Parent Task
+          <select id="parentSelect"></select>
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn-primary">Save</button>
+          <button type="button" id="cancelModal" class="btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>All Rights Reserved to RSW @2025. Powered by RoboSoft Works</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

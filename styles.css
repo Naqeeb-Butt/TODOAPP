@@ -1,0 +1,239 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  background: #f2f4f8;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Header */
+.app-header {
+  background: #4a90e2;
+  color: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Buttons */
+button,
+.btn-primary,
+.btn-secondary {
+  padding: 10px 16px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.btn-secondary {
+  background-color: #f2f2f2;
+  color: #333;
+}
+.btn-secondary:hover {
+  background-color: #ddd;
+}
+
+/* Dropdowns */
+.controls {
+  margin: 30px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.controls label {
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.controls select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.controls select:hover {
+  border-color: #007bff;
+  background-color: #eef6ff;
+}
+
+/* Table */
+
+.table-wrapper {
+  overflow-x: auto;
+  
+}
+.modern-table {
+  width: 100%;
+  table-layout: fixed; /* required for custom widths to apply */
+}
+
+/* Task column (2nd column) gets more width */
+.modern-table th:nth-child(2),
+.modern-table td:nth-child(2) {
+  width: 40%; /* Give Task more space */
+}
+
+/* ID column smaller */
+.modern-table th:nth-child(1),
+.modern-table th:nth-child(3),
+.modern-table th:nth-child(4)
+{
+  width: 5%;
+}
+
+/* Name, Priority, Schedule, Date/Time, Actions share rest */
+.modern-table th:nth-child(5),
+.modern-table td:nth-child(6){
+  width: 11%;
+}
+.modern-table th:nth-child(7) {
+  text-align: center;
+  width: 16%;
+}
+
+.todo-table {
+
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.todo-table th,
+.todo-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.todo-table th {
+  background-color: #f9fafc;
+  font-weight: 600;
+}
+
+.todo-table tbody tr:hover {
+  background-color: #f5faff;
+}
+
+/* Action Buttons */
+.edit-btn, .delete-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+.edit-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+.delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+.delete-btn:hover {
+  background-color: #a71d2a;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+.modal-card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+.modal-card input,
+.modal-card select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .toolbar, .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
