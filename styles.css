@@ -71,7 +71,11 @@ button,
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  align-items: center;
+  align-items: flex-end;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .controls label {
@@ -79,6 +83,7 @@ button,
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  min-width: 120px;
 }
 
 .controls select {
@@ -89,6 +94,7 @@ button,
   font-size: 14px;
   cursor: pointer;
   transition: 0.3s;
+  margin-top: 5px;
 }
 
 .controls select:hover {
@@ -96,46 +102,111 @@ button,
   background-color: #eef6ff;
 }
 
-/* Table Wrapper */
+.controls select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sort-buttons button {
+  padding: 10px 16px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.sort-buttons button:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+/* Table */
 .table-wrapper {
   overflow-x: auto;
+  margin: 20px 0;
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
   width: 100%;
 }
+
 .modern-table {
   width: 100%;
+  min-width: 900px; /* Ensure minimum width for proper layout */
   table-layout: fixed;
-  border-spacing: 0;
+  border-collapse: collapse;
 }
 
-/* Task column spacing (icon + text) */
-.task-cell {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  word-wrap: break-word;
+/* Responsive column widths */
+.modern-table th:nth-child(1),
+.modern-table td:nth-child(1) {
+  width: 8%; /* ID column */
 }
 
-/* Column widths (MacBook default) */
 .modern-table th:nth-child(2),
 .modern-table td:nth-child(2) {
-  width: 40%;
-}
-.modern-table th:nth-child(1),
-.modern-table th:nth-child(3),
-.modern-table th:nth-child(4) {
-  width: 5%;
-}
-.modern-table th:nth-child(5),
-.modern-table td:nth-child(6) {
-  width: 11%;
-}
-.modern-table th:nth-child(7) {
-  text-align: center;
-  width: 16%;
+  width: 35%; /* Task column - more space */
 }
 
-/* Table styling */
+.modern-table th:nth-child(3),
+.modern-table td:nth-child(3) {
+  width: 12%; /* Name column */
+}
+
+.modern-table th:nth-child(4),
+.modern-table td:nth-child(4) {
+  width: 8%; /* Priority column */
+}
+
+.modern-table th:nth-child(5),
+.modern-table td:nth-child(5) {
+  width: 12%; /* Schedule column */
+}
+
+.modern-table th:nth-child(6),
+.modern-table td:nth-child(6) {
+  width: 15%; /* Date/Time column */
+}
+
+.modern-table th:nth-child(7),
+.modern-table td:nth-child(7) {
+  width: 140px; /* Fixed width for Actions column */
+  text-align: center;
+  min-width: 140px;
+}
+
+/* Task cell styling with proper icon spacing */
+.task-cell {
+  position: relative;
+}
+
+.task-cell .toggle-icon {
+  margin-right: 8px; /* Space between icon and text */
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+}
+
+/* Actions cell improvements */
+.actions-cell {
+  display: flex;
+  gap: 12px; /* Significant gap between Edit and Delete buttons */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap; /* Keep buttons side by side */
+}
 .todo-table {
+
   border-collapse: collapse;
   background: white;
   border-radius: 12px;
@@ -160,36 +231,37 @@ button,
 }
 
 /* Action Buttons */
-.action-buttons {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.edit-btn,
-.delete-btn {
-  padding: 8px 14px;
+.edit-btn, .delete-btn {
+  padding: 8px 16px;
   border: none;
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   transition: 0.2s ease;
+  min-width: 65px;
+  white-space: nowrap;
+  flex-shrink: 0; /* Prevent buttons from shrinking */
 }
+
 .edit-btn {
   background-color: #007bff;
   color: #fff;
 }
+
 .edit-btn:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
+
 .delete-btn {
   background-color: #dc3545;
   color: #fff;
 }
+
 .delete-btn:hover {
   background-color: #a71d2a;
+  transform: translateY(-1px);
 }
 
 /* Modal */
@@ -241,77 +313,147 @@ button,
   font-size: 14px;
 }
 
-/* --- Apple Device Breakpoints --- */
-
-/* iPhone (375px – 430px) */
-@media (max-width: 430px) {
-  body {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .app-header h1 {
-    font-size: 20px;
-  }
-
-  .controls label,
-  .controls select {
-    width: 100%;
-    font-size: 13px;
-  }
-
-  .todo-table th,
-  .todo-table td {
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    gap: 10px;
+/* Enhanced Responsive Design */
+@media (max-width: 1024px) {
+  .modern-table {
+    min-width: 700px;
   }
 
   .modern-table th:nth-child(2),
   .modern-table td:nth-child(2) {
-    width: 60%; /* Task takes more space */
+    width: 30%; /* Reduce task column width on tablets */
+  }
+
+  .modern-table th:nth-child(6),
+  .modern-table td:nth-child(6) {
+    width: 18%; /* Increase date column slightly */
   }
 }
 
-/* iPad (768px – 1024px) */
-@media (min-width: 431px) and (max-width: 1024px) {
+@media (max-width: 768px) {
   body {
-    font-size: 15px;
+    padding: 10px;
+  }
+
+  .app-header {
+    padding: 15px 20px;
   }
 
   .app-header h1 {
     font-size: 24px;
   }
 
-  .todo-table th,
-  .todo-table td {
-    padding: 12px 14px;
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .toolbar button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .controls label {
+    width: 100%;
+  }
+
+  .controls select {
+    width: 100%;
+  }
+
+  .sort-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .sort-buttons button {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+
+  .modern-table {
+    min-width: 700px;
+  }
+
+  .modern-table th,
+  .modern-table td {
+    padding: 10px 8px;
     font-size: 14px;
+  }
+
+  .actions-cell {
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .edit-btn, .delete-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    min-width: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .modern-table {
+    min-width: 500px;
+  }
+
+  .modern-table th:nth-child(1),
+  .modern-table td:nth-child(1) {
+    width: 10%; /* Slightly larger ID column on small screens */
   }
 
   .modern-table th:nth-child(2),
   .modern-table td:nth-child(2) {
-    width: 50%;
-  }
-}
-
-/* MacBook (1280px and above) */
-@media (min-width: 1280px) {
-  body {
-    font-size: 16px;
+    width: 40%; /* More space for task text */
   }
 
-  .app-header h1 {
-    font-size: 28px;
+  .modern-table th:nth-child(3),
+  .modern-table td:nth-child(3) {
+    width: 15%; /* Name column */
   }
 
-  .todo-table th,
-  .todo-table td {
-    padding: 15px 20px;
-    font-size: 16px;
+  .modern-table th:nth-child(4),
+  .modern-table td:nth-child(4) {
+    width: 8%; /* Priority */
+  }
+
+  .modern-table th:nth-child(5),
+  .modern-table td:nth-child(5) {
+    width: 12%; /* Schedule */
+  }
+
+  .modern-table th:nth-child(6),
+  .modern-table td:nth-child(6) {
+    display: none; /* Hide date/time on very small screens */
+  }
+
+  .modern-table th:nth-child(7),
+  .modern-table td:nth-child(7) {
+    width: 15%; /* Actions */
+  }
+
+  .modal-card {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .modal-card h2 {
+    font-size: 18px;
   }
 }
