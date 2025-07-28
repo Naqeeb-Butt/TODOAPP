@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Date
       const dateCell = document.createElement("td");
       dateCell.textContent = task.dateTime;
-      if (!showDateTime) dateCell.style.display = "none";
+      dateCell.style.display = showDateTime ? "" : "none";
       row.appendChild(dateCell);
 
       // Actions
@@ -412,11 +412,21 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (showDateTime) {
       dateHeader.style.display = "";
-      dateCells.forEach(cell => cell.style.display = "");
+      dateCells.forEach(cell => {
+        cell.style.display = "";
+      });
+      // Update button text to indicate current state
+      document.getElementById("toggleDateTime").textContent = "Hide Date/Time";
     } else {
       dateHeader.style.display = "none";
-      dateCells.forEach(cell => cell.style.display = "none");
+      dateCells.forEach(cell => {
+        cell.style.display = "none";
+      });
+      // Update button text to indicate current state
+      document.getElementById("toggleDateTime").textContent = "Show Date/Time";
     }
+    
+    // Ensure the change persists by re-rendering
     renderTasks();
   });
 
@@ -436,13 +446,30 @@ document.addEventListener("DOMContentLoaded", () => {
     window.print();
   });
 
+  // Enhanced mobile-friendly font controls
   document.getElementById("fontSelect").addEventListener("change", applyFontSettings);
   document.getElementById("fontSizeSelect").addEventListener("change", applyFontSettings);
   document.getElementById("colorSelect").addEventListener("change", applyFontSettings);
+
+  // Add touch event support for mobile toggle icons
+  document.addEventListener("touchstart", (e) => {
+    if (e.target.classList.contains("toggle-icon")) {
+      e.target.style.opacity = "0.7";
+    }
+  });
+
+  document.addEventListener("touchend", (e) => {
+    if (e.target.classList.contains("toggle-icon")) {
+      e.target.style.opacity = "1";
+    }
+  });
 
   /* =====================
       Initialize
   ===================== */
   populateDropdowns();
   renderTasks();
+  
+  // Set initial button text based on showDateTime state
+  document.getElementById("toggleDateTime").textContent = showDateTime ? "Hide Date/Time" : "Show Date/Time";
 });
