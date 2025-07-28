@@ -494,42 +494,45 @@ button,
   }
 
   .modern-table {
-    min-width: 600px; /* Increased from 500px to prevent collapsing */
+    min-width: 700px; /* Increased from 600px to accommodate wider columns */
   }
 
   .modern-table th:nth-child(1),
   .modern-table td:nth-child(1) {
     width: 50px;
     min-width: 50px;
+    padding-left: 12px; /* Added proper left padding for ID column */
   }
 
   .modern-table th:nth-child(2),
   .modern-table td:nth-child(2) {
-    width: 180px; /* Fixed width instead of percentage */
-    min-width: 180px;
+    width: 200px; /* Increased from 180px for better task text display */
+    min-width: 200px;
   }
 
   .modern-table th:nth-child(3),
   .modern-table td:nth-child(3) {
-    width: 80px; /* Fixed width instead of percentage */
-    min-width: 80px;
+    width: 90px; /* Increased from 80px for better name display */
+    min-width: 90px;
   }
 
   .modern-table th:nth-child(4),
   .modern-table td:nth-child(4) {
-    width: 60px;
-    min-width: 60px;
+    width: 80px; /* Increased from 60px for priority column */
+    min-width: 80px;
   }
 
   .modern-table th:nth-child(5),
   .modern-table td:nth-child(5) {
-    width: 80px; /* Fixed width instead of percentage */
-    min-width: 80px;
+    width: 100px; /* Increased from 80px for schedule column */
+    min-width: 100px;
   }
 
   .modern-table th:nth-child(6),
   .modern-table td:nth-child(6) {
-    display: none; /* Hide date/time on small screens */
+    width: 140px; /* Set proper width instead of display: none */
+    min-width: 140px;
+    /* Remove the display: none to let JavaScript toggle handle visibility */
   }
 
   .modern-table th:nth-child(7),
@@ -542,9 +545,18 @@ button,
   .modern-table td {
     padding: 12px 6px;
     font-size: 13px;
-    white-space: nowrap; /* Prevent text wrapping within cells */
+    white-space: nowrap; /* Keep for most cells */
     text-overflow: ellipsis;
     overflow: hidden;
+  }
+
+  /* Special handling for specific columns to prevent unwanted truncation */
+  .modern-table th:nth-child(4),
+  .modern-table td:nth-child(4),
+  .modern-table th:nth-child(5),
+  .modern-table td:nth-child(5) {
+    text-overflow: clip; /* Remove ellipsis for Priority and Schedule columns */
+    overflow: visible; /* Allow full text display */
   }
 
   /* Allow task text to wrap but control it */
@@ -593,7 +605,7 @@ button,
 /* Extra Small Devices */
 @media (max-width: 360px) {
   .modern-table {
-    min-width: 550px; /* Increased to prevent collapsing */
+    min-width: 650px; /* Increased from 550px to accommodate the wider columns */
   }
 
   .app-header h1 {
@@ -602,20 +614,32 @@ button,
 
   .modern-table th:nth-child(2),
   .modern-table td:nth-child(2) {
-    width: 160px; /* Slightly smaller for very small screens */
-    min-width: 160px;
+    width: 180px; /* Slightly reduced for very small screens */
+    min-width: 180px;
   }
 
   .modern-table th:nth-child(3),
   .modern-table td:nth-child(3) {
-    width: 70px;
+    width: 80px;
+    min-width: 80px;
+  }
+
+  .modern-table th:nth-child(4),
+  .modern-table td:nth-child(4) {
+    width: 70px; /* Slightly reduced but still usable */
     min-width: 70px;
   }
 
   .modern-table th:nth-child(5),
   .modern-table td:nth-child(5) {
-    width: 70px;
-    min-width: 70px;
+    width: 90px; /* Reduced but still readable */
+    min-width: 90px;
+  }
+
+  .modern-table th:nth-child(6),
+  .modern-table td:nth-child(6) {
+    width: 130px; /* Reduced for very small screens */
+    min-width: 130px;
   }
 
   .modern-table th:nth-child(7),
@@ -628,6 +652,12 @@ button,
   .modern-table td {
     padding: 10px 4px;
     font-size: 12px;
+  }
+
+  /* Ensure ID column still has proper left padding on extra small screens */
+  .modern-table th:nth-child(1),
+  .modern-table td:nth-child(1) {
+    padding-left: 10px;
   }
 
   .edit-btn, .delete-btn {
