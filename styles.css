@@ -96,34 +96,37 @@ button,
   background-color: #eef6ff;
 }
 
-/* Table */
-
+/* Table Wrapper */
 .table-wrapper {
   overflow-x: auto;
-  
+  width: 100%;
 }
 .modern-table {
   width: 100%;
-  table-layout: fixed; /* required for custom widths to apply */
+  table-layout: fixed;
+  border-spacing: 0;
 }
 
-/* Task column (2nd column) gets more width */
+/* Task column spacing (icon + text) */
+.task-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-wrap: break-word;
+}
+
+/* Column widths (MacBook default) */
 .modern-table th:nth-child(2),
 .modern-table td:nth-child(2) {
-  width: 40%; /* Give Task more space */
+  width: 40%;
 }
-
-/* ID column smaller */
 .modern-table th:nth-child(1),
 .modern-table th:nth-child(3),
-.modern-table th:nth-child(4)
-{
+.modern-table th:nth-child(4) {
   width: 5%;
 }
-
-/* Name, Priority, Schedule, Date/Time, Actions share rest */
 .modern-table th:nth-child(5),
-.modern-table td:nth-child(6){
+.modern-table td:nth-child(6) {
   width: 11%;
 }
 .modern-table th:nth-child(7) {
@@ -131,8 +134,8 @@ button,
   width: 16%;
 }
 
+/* Table styling */
 .todo-table {
-
   border-collapse: collapse;
   background: white;
   border-radius: 12px;
@@ -157,7 +160,15 @@ button,
 }
 
 /* Action Buttons */
-.edit-btn, .delete-btn {
+.action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn {
   padding: 8px 14px;
   border: none;
   border-radius: 6px;
@@ -230,10 +241,77 @@ button,
   font-size: 14px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .toolbar, .controls {
+/* --- Apple Device Breakpoints --- */
+
+/* iPhone (375px – 430px) */
+@media (max-width: 430px) {
+  body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .controls label,
+  .controls select {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .todo-table th,
+  .todo-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .action-buttons {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .modern-table th:nth-child(2),
+  .modern-table td:nth-child(2) {
+    width: 60%; /* Task takes more space */
+  }
+}
+
+/* iPad (768px – 1024px) */
+@media (min-width: 431px) and (max-width: 1024px) {
+  body {
+    font-size: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .todo-table th,
+  .todo-table td {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .modern-table th:nth-child(2),
+  .modern-table td:nth-child(2) {
+    width: 50%;
+  }
+}
+
+/* MacBook (1280px and above) */
+@media (min-width: 1280px) {
+  body {
+    font-size: 16px;
+  }
+
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .todo-table th,
+  .todo-table td {
+    padding: 15px 20px;
+    font-size: 16px;
   }
 }
