@@ -2,6 +2,17 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =====================
       Data & Variables
   ===================== */
+  function getFormattedDateTime() {
+    return new Date().toLocaleString([], {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false // 24-hour format
+    });
+  }
+
   let tasks = [
     {
       id: 101,
@@ -9,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Azgh",
       priority: 8,
       schedule: "TN",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 1,
       parentId: null,
       collapsed: false
@@ -20,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "aa",
       priority: 7,
       schedule: "TN",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 2,
       parentId: 101,
       collapsed: false
@@ -31,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Sarah",
       priority: 10,
       schedule: "Monday",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 1,
       parentId: null,
       collapsed: false
@@ -42,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Mike",
       priority: 5,
       schedule: "Wednesday",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 1,
       parentId: null,
       collapsed: false
@@ -53,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Jennifer",
       priority: 3,
       schedule: "Friday",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 1,
       parentId: null,
       collapsed: false
@@ -64,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "David",
       priority: 6,
       schedule: "Today",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 2,
       parentId: 103,
       collapsed: false
@@ -75,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       name: "Lisa",
       priority: 9,
       schedule: "Next Week",
-      dateTime: new Date().toLocaleString(),
+      dateTime: getFormattedDateTime(),
       level: 1,
       parentId: null,
       collapsed: false
@@ -306,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
         name,
         priority,
         schedule,
-        dateTime: new Date().toLocaleString(),
+        dateTime: getFormattedDateTime(),
         level,
         parentId,
         collapsed: false
@@ -340,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return tasks
       .filter(t => t.parentId === parentId)
       .map(t => ({ 
-        ...t, // Preserve all original task properties
+        ...t, 
         children: buildTree(t.id) 
       }));
   }
@@ -348,7 +359,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function flattenTree(tree) {
     let flat = [];
     tree.forEach(node => {
-      // Create a clean task object without the children property
       const { children, ...task } = node;
       flat.push(task);
       if (children && children.length > 0) {
@@ -359,19 +369,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function sortTree(tree, key, isNumeric = false) {
-    // Sort the current level
     tree.sort((a, b) => {
       if (isNumeric) {
-        return b[key] - a[key]; // Descending for priority (higher priority first)
+        return b[key] - a[key];
       } else {
-        // Handle both string and non-string values
         const aVal = String(a[key] || '').toLowerCase();
         const bVal = String(b[key] || '').toLowerCase();
         return aVal.localeCompare(bVal);
       }
     });
     
-    // Recursively sort children
     tree.forEach(node => {
       if (node.children && node.children.length > 0) {
         sortTree(node.children, key, isNumeric);
@@ -380,20 +387,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function sortBy(key) {
-    // Build tree structure maintaining hierarchy
     let tree = buildTree();
-    
-    // Sort each level of the tree
     const isNumeric = key === "priority";
     sortTree(tree, key, isNumeric);
-    
-    // Flatten back to array while preserving the sorted hierarchy
     const sortedTasks = flattenTree(tree);
-    
-    // Update the tasks array
     tasks = sortedTasks;
-    
-    // Re-render the table
     renderTasks();
   }
 
@@ -415,18 +413,15 @@ document.addEventListener("DOMContentLoaded", () => {
       dateCells.forEach(cell => {
         cell.style.display = "";
       });
-      // Update button text to indicate current state
       document.getElementById("toggleDateTime").textContent = "Hide Date/Time";
     } else {
       dateHeader.style.display = "none";
       dateCells.forEach(cell => {
         cell.style.display = "none";
       });
-      // Update button text to indicate current state
       document.getElementById("toggleDateTime").textContent = "Show Date/Time";
     }
     
-    // Ensure the change persists by re-rendering
     renderTasks();
   });
 
@@ -470,6 +465,5 @@ document.addEventListener("DOMContentLoaded", () => {
   populateDropdowns();
   renderTasks();
   
-  // Set initial button text based on showDateTime state
   document.getElementById("toggleDateTime").textContent = showDateTime ? "Hide Date/Time" : "Show Date/Time";
 });
