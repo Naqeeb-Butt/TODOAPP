@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 101,
       text: "ALL OUR WITNESSES NEED TO BE PREPARED",
-      name: "LORD",
+      name: "Azgh",
       priority: 8,
       schedule: "TN",
       dateTime: new Date().toLocaleString(),
@@ -17,12 +17,67 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: 102,
       text: "JOHN ADAMS",
-      name: "LORD",
-      priority: 9,
+      name: "aa",
+      priority: 7,
       schedule: "TN",
       dateTime: new Date().toLocaleString(),
       level: 2,
       parentId: 101,
+      collapsed: false
+    },
+    {
+      id: 103,
+      text: "Review case documents",
+      name: "Sarah",
+      priority: 10,
+      schedule: "Monday",
+      dateTime: new Date().toLocaleString(),
+      level: 1,
+      parentId: null,
+      collapsed: false
+    },
+    {
+      id: 104,
+      text: "Prepare opening statement",
+      name: "Mike",
+      priority: 5,
+      schedule: "Wednesday",
+      dateTime: new Date().toLocaleString(),
+      level: 1,
+      parentId: null,
+      collapsed: false
+    },
+    {
+      id: 105,
+      text: "Contact expert witnesses",
+      name: "Jennifer",
+      priority: 3,
+      schedule: "Friday",
+      dateTime: new Date().toLocaleString(),
+      level: 1,
+      parentId: null,
+      collapsed: false
+    },
+    {
+      id: 106,
+      text: "Research precedent cases",
+      name: "David",
+      priority: 6,
+      schedule: "Today",
+      dateTime: new Date().toLocaleString(),
+      level: 2,
+      parentId: 103,
+      collapsed: false
+    },
+    {
+      id: 107,
+      text: "Schedule deposition",
+      name: "Lisa",
+      priority: 9,
+      schedule: "Next Week",
+      dateTime: new Date().toLocaleString(),
+      level: 1,
+      parentId: null,
       collapsed: false
     }
   ];
