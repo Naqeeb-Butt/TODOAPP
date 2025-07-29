@@ -238,14 +238,18 @@ document.addEventListener("DOMContentLoaded", () => {
       editBtn.textContent = "Edit";
       editBtn.classList.add("edit-btn");
       editBtn.addEventListener("click", () => openModal(task));
+      editBtn.className = "edit-btn px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-md text-sm shadow-sm transition";
 
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "Delete";
       deleteBtn.classList.add("delete-btn");
       deleteBtn.addEventListener("click", () => deleteTask(task.id));
+      deleteBtn.className = "delete-btn px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm shadow-sm transition";
 
       actionsCell.appendChild(editBtn);
       actionsCell.appendChild(deleteBtn);
+      actionsCell.classList.add("flex", "gap-3"); // spacing between buttons
+      actionsCell.className = "actions-cell flex justify-center items-center gap-3 py-3";
       row.appendChild(actionsCell);
 
       tbody.appendChild(row);
