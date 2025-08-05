@@ -473,8 +473,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-document.addEventListener('contextmenu', event => event.preventDefault());
-document.addEventListener('keydown', event => {
-    if (event.ctrlKey && (event.key === 'u' || event.key === 's' || event.key === 'i')) {
-        event.preventDefault();
-    }
+document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+// Disable F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+document.addEventListener("keydown", (e) => {
+  if (
+    e.key === "F12" || 
+    (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) || 
+    (e.ctrlKey && e.key === "U") || 
+    (e.ctrlKey && e.key === "S")
+  ) {
+    e.preventDefault();
+  }
+});
